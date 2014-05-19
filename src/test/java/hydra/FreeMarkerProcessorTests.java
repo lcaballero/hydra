@@ -18,21 +18,16 @@ import static org.junit.Assert.assertThat;
 
 public class FreeMarkerProcessorTests {
 
-    private Configuration config = null;
     private File ftlHome = Paths.get("files/templates/ftl/t1.ftl").toFile();
     private Map<String,Object> model = new HashMap<String, Object>();
     private FreeMarkerProcessor processor = null;
 
     @Before
     public void setup() throws IOException {
-        config = new DefaultConfiguration(ftlHome.getParentFile());
+        model = new HashMap<String,Object>();
+        model.put("name", "Hello, World!");
 
-        Map<String,Object> map = new HashMap<String,Object>();
-        map.put("name", "Hello, World!");
-
-        model = map;
-
-        processor = new FreeMarkerProcessor(config);
+        processor = new FreeMarkerProcessor(new DefaultConfiguration(ftlHome.getParentFile()));
     }
 
     @Test
