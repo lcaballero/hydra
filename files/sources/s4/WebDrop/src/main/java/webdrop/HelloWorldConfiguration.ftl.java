@@ -1,4 +1,4 @@
-package webdrop;
+package ${namespace};
 
 import com.bazaarvoice.dropwizard.assets.AssetsBundleConfiguration;
 import com.bazaarvoice.dropwizard.assets.AssetsConfiguration;

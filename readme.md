@@ -19,3 +19,17 @@ At the moment the project is very young and is maintained as a working project h
 to entertain anyone who is interested.  As of 5-19-2014 there is not a working example, but check back
 in a few weeks if this is something you are interested in contributing to.
 
+
+## TODO (Mostly considerations)
+
+- Making target directories that don't exist in the source.
+- Placing source files in different, or generated location (as per the above).
+This will be necessary to expand a namespace from a '.' delimited name to a '/' file path delimited name.
+- Reading source files from a zip
+- Reading source files from a jar where the app is running. This would be useful for creating a fat jar with
+all of the deps and then reading all source files from inside of that jar.
+
+## Config
+
+- Location of template repos (local)
+- Location of ancillary file copy repo (for instance a repo of .gitignore files maintained outside of the template.

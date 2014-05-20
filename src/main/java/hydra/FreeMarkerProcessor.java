@@ -11,12 +11,16 @@ import java.io.StringWriter;
 public class FreeMarkerProcessor {
 
     private Configuration config = null;
+    private Object model = null;
+    private String ftl = null;
 
-    public FreeMarkerProcessor(Configuration cfg) {
+    public FreeMarkerProcessor(Configuration cfg, Object model, String ftl) {
         this.config = cfg;
+        this.model = model;
+        this.ftl = ftl;
     }
 
-    public String apply(String ftl, Object model) throws IOException, TemplateException {
+    public String apply() throws IOException, TemplateException {
         StringWriter result = new StringWriter();
         Template tpl = config.getTemplate(ftl);
         tpl.process(model, result);

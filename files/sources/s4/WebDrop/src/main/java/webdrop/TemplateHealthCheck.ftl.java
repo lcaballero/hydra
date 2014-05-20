@@ -1,4 +1,5 @@
-package webdrop;
+package ${namespace};
+
 
 import com.codahale.metrics.health.HealthCheck;
 

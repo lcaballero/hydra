@@ -10,21 +10,21 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 
-public class DirCopierTests extends Helpers {
+public class DirCopierTests extends FileHelpers {
 
     private Path source = Paths.get("files/sources/s3");
     private Path target = Paths.get("files/targets/t3");
 
     @Before
     public void setup() {
-        new DirRemover(target).removeContentFrom();
-        create(target);
+        new DirRemover(target).apply();
+        createFile(target);
     }
 
     @Test
     public void should_copy_all_files_from_one_directory_to_another() {
         assertThat(hasFiles(target), is(false));
-        new DirCopier(source).copyContentTo(target);
+        new DirCopier(source, target).apply();
         assertThat(hasFiles(target), is(true));
     }
 }

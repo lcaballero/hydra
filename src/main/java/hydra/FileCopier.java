@@ -6,7 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 
-public class FileCopier {
+public class FileCopier implements IApplier {
 
     public static final CopyOption[] DEFAULT_COPY_OPTIONS = new CopyOption[] {
         StandardCopyOption.COPY_ATTRIBUTES, StandardCopyOption.REPLACE_EXISTING
@@ -22,7 +22,7 @@ public class FileCopier {
         this.options = options == null || options.length == 0 ? DEFAULT_COPY_OPTIONS : options;
     }
 
-    public void exec() {
+    public void apply() {
         try {
             Files.copy(this.src, this.target, this.options);
         } catch (Exception e) {

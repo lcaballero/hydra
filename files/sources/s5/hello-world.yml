@@ -1,0 +1,16 @@
+template: Hello, %s!
+defaultName: Stranger
+server:
+  applicationConnectors:
+  - type: http
+    port: 9000
+  adminConnectors:
+  - type: http
+    port: 9001
+
+
+assets:
+  overrides:
+    /public/pages: src/main/resources/pages/
+    /public/js: src/main/resources/js/
+    /public/css: src/main/resources/css/

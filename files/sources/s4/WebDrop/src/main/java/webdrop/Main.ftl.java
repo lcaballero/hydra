@@ -1,4 +1,4 @@
-package webdrop;
+package ${namespace};
 
 
 public class Main {

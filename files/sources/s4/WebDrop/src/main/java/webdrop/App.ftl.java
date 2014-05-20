@@ -1,4 +1,4 @@
-package webdrop;
+package ${namespace};
 
 import com.google.common.base.Joiner;
 import com.google.inject.Singleton;

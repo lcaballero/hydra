@@ -39,7 +39,7 @@ public class DirCopyTests {
         assertThat(T1.toFile().exists(), is(false));
 
         FileCopier dcp = new FileCopier(S1, T1);
-        dcp.exec();
+        dcp.apply();
 
         assertThat(dcp.isDirectory(), is(true));
         assertThat(T1.toFile().exists(), is(true));

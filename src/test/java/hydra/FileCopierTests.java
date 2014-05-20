@@ -40,7 +40,7 @@ public class FileCopierTests {
         assertThat(T1.toFile().exists(), is(false));
 
         FileCopier cp = new FileCopier(S1, T1);
-        cp.exec();
+        cp.apply();
 
         assertThat(T1.toFile().exists(), is(true));
     }
@@ -48,7 +48,7 @@ public class FileCopierTests {
     @Test
     public void should_find_copied_file_has_same_contents() throws IOException {
         FileCopier cp = new FileCopier(S1, T1);
-        cp.exec();
+        cp.apply();
 
         String a = Files.toString(S1.toFile(), Charsets.UTF_8);
         String b = Files.toString(T1.toFile(), Charsets.UTF_8);
