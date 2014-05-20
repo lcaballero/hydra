@@ -1,13 +1,17 @@
 package hydra;
 
-import org.junit.Assert;
+import com.google.common.base.Preconditions;
+import com.google.common.collect.TreeTraverser;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.Collections;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -20,23 +24,21 @@ public class WalkerTests {
 
     @Before
     public void setup() {
+    }
 
+    public boolean hasFiles(Path p) {
+        File f = t3.toFile();
+        File[] files = f.listFiles();
+        return files != null && files.length > 0;
     }
 
     @Test
     public void should_copy_all_files_from_one_directory_to_another() throws IOException {
+        assertThat(hasFiles(t3), is(true));
 
-        assertThat(t3.toFile().list().length, is(0));
+        new DirCopier(s3).copyToTarget(t3);
 
-//        // Produces only files, that can be deleted, then ran through again to delete the directories.
-//        Files.walk(t3)
-//            .map((a) -> a.toFile().getAbsoluteFile())
-//            .filter((a) -> a.isFile())
-//            .forEach(System.out::println);
-//
-//        Files.walk(s3)
-//            .map((a) -> a.toFile().getPath())
-//            .forEach(System.out::println);
+        assertThat(hasFiles(t3), is(false));
     }
 
     @Test
@@ -45,14 +47,14 @@ public class WalkerTests {
         assertThat(t3.toFile().list().length, is(0));
 
         // Produces only files, that can be deleted, then ran through again to delete the directories.
-        Files.walk(t3)
-            .map((a) -> a.toFile().getAbsoluteFile())
-            .filter((a) -> a.isFile())
-            .forEach(System.out::println);
-
-        Files.walk(s3)
-            .map((a) -> a.toFile().getPath())
-            .forEach(System.out::println);
+//        Files.walk(t3)
+//            .map((a) -> a.toFile().getAbsoluteFile())
+//            .filter((a) -> a.isFile())
+//            .forEach(System.out::println);
+//
+//        Files.walk(s3)
+//            .map((a) -> a.toFile().getPath())
+//            .forEach(System.out::println);
 
     }
 

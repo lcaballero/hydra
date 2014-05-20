@@ -22,8 +22,12 @@ public class FileCopier {
         this.options = options == null || options.length == 0 ? DEFAULT_COPY_OPTIONS : options;
     }
 
-    public void exec() throws IOException {
-        Files.copy(this.src, this.target, this.options);
+    public void exec() {
+        try {
+            Files.copy(this.src, this.target, this.options);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public boolean hasSource() {
@@ -32,5 +36,10 @@ public class FileCopier {
 
     public boolean isDirectory() {
         return src.toFile().isDirectory();
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s -> %s", src.toString(), target.toString());
     }
 }
