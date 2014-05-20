@@ -29,7 +29,16 @@ This will be necessary to expand a namespace from a '.' delimited name to a '/' 
 - Reading source files from a jar where the app is running. This would be useful for creating a fat jar with
 all of the deps and then reading all source files from inside of that jar.
 
+- How to test a code generator that uses the framework?
+    - Add jar-ing to the app so that it can be used to jar up a generator with a main?
+
 ## Config
 
 - Location of template repos (local)
-- Location of ancillary file copy repo (for instance a repo of .gitignore files maintained outside of the template.
+- Location of ancillary file copy repo
+    - For instance a repo of .gitignore files maintained outside of the template.
+    - Or location of license files copied and then placed in the target.
+    - Would the selection menu be outside of the jar or inside?
+        - How would meta-data be associated with files?
+        - Maybe from a web service?
+        - Then treat the response like a browser would treat ajax request?
