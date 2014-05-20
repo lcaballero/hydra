@@ -4,13 +4,13 @@ written in Java and with possibly a more arcane name.
 
 The idea is that given some kind of seed structure and a bit of custom code this tool would be how future
 project setup would be done.  No requirement exists to include scaffolding for things like sub-views
-or plug-in(s) to existing project structures -- but we'll see how that goes.  Providing a examples and
+or plug-in(s) to existing project structures -- but we'll see how that goes.  Providing examples and
 guidelines for testing project generation are higher on the list.
 
 
 ## Target Process
 - Use a generator-generator to start a new generator
-- Withing that generator take advantage of core models and utilities to facilitate a new project template.
+- Within that generator take advantage of core models and utilities to facilitate a new project template.
 - Store templates in a local repo and generate templates for a variety of uses.
 
 
@@ -41,4 +41,4 @@ all of the deps and then reading all source files from inside of that jar.
     - Would the selection menu be outside of the jar or inside?
         - How would meta-data be associated with files?
         - Maybe from a web service?
-        - Then treat the response like a browser would treat ajax request?
+        - Then treat the response like a browser would treat an ajax request?
