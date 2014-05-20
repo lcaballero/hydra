@@ -15,8 +15,8 @@ public class DirCopier {
         return this.source;
     }
 
-    public void copyToTarget(Path target) {
-        new PostOrderTraverser()
+    public void copyContentTo(Path target) {
+        new FileTraverser()
             .preOrderTraversal(this.source.toFile())
             .toList()
             .stream()

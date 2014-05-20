@@ -7,13 +7,18 @@ import java.util.Arrays;
 import java.util.Collections;
 
 
-public class PostOrderTraverser extends TreeTraverser<File> {
+public class FileTraverser extends TreeTraverser<File> {
     @Override
     public Iterable<File> children(File root) {
         if (root.isFile()) {
             return Collections.EMPTY_LIST;
         } else {
-            return Arrays.asList(root.listFiles());
+            File[] files = root.listFiles();
+            if (files != null && files.length > 0) {
+                return Arrays.asList(files);
+            } else {
+                return Collections.EMPTY_LIST;
+            }
         }
     }
 }
