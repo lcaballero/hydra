@@ -2,6 +2,7 @@ package hydra;
 
 import com.google.common.base.Charsets;
 import com.google.common.io.Files;
+import freemarker.template.Configuration;
 import freemarker.template.TemplateException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
@@ -10,6 +11,7 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,12 +33,10 @@ public class FreeMarkerProcessorTests {
 
     @Test
     public void should_produce_result_with_hw() throws IOException, TemplateException {
+        Configuration config = new DefaultConfiguration(ftlHome.getParentFile());
         String result =
-            new FreeMarkerProcessor(
-                new DefaultConfiguration(ftlHome.getParentFile()),
-                model,
-                ftlHome.getName())
-            .apply();
+            new FreeMarkerProcessor(model, new File(ftlHome.getName()))
+            .apply(config);
         assertThat(result, containsString("Hello, World!"));
     }
 
@@ -45,11 +45,9 @@ public class FreeMarkerProcessorTests {
         ObjectMapper mapper = new ObjectMapper();
         User user = mapper.readValue(Paths.get("files/json/user.json").toFile(), User.class);
 
-        String result = new FreeMarkerProcessor(
-                new DefaultConfiguration(ftlHome.getParentFile()),
-                user,
-                "user.ftl")
-            .apply();
+        Configuration config = new DefaultConfiguration(ftlHome.getParentFile());
+        String result = new FreeMarkerProcessor(user, new File("user.ftl"))
+            .apply(config);
 
         assertThat(result, containsString(user.getName().getFirst()));
         assertThat(result, containsString(user.getName().getLast()));
@@ -64,11 +62,9 @@ public class FreeMarkerProcessorTests {
             new TypeReference<Map<String,Object>>() {});
 
         Pre p = new Pre(user);
-        String result = new FreeMarkerProcessor(
-                new DefaultConfiguration(ftlHome.getParentFile()),
-                user,
-                "user.ftl")
-            .apply();
+        Configuration config = new DefaultConfiguration(ftlHome.getParentFile());
+        String result = new FreeMarkerProcessor(user, new File("user.ftl"))
+            .apply(config);
 
         assertThat(result, containsString(p.map("name").get("first").toString()));
         assertThat(result, containsString(p.map("name").get("last").toString()));
@@ -85,11 +81,9 @@ public class FreeMarkerProcessorTests {
             Paths.get("files/json/config-1.json").toFile(),
             new TypeReference<HashMap<String,Object>>(){});
 
-        String newCode = new FreeMarkerProcessor(
-                new DefaultConfiguration(javaFile.getParentFile()),
-                map,
-                "App.ftl.java")
-            .apply();
+        Configuration config = new DefaultConfiguration(javaFile.getParentFile());
+        String newCode = new FreeMarkerProcessor(map, new File("App.ftl.java"))
+            .apply(config);
 
         assertThat(code, containsString("${namespace}"));
         assertThat(newCode, containsString("com.hydra.den"));
@@ -105,14 +99,28 @@ public class FreeMarkerProcessorTests {
             Paths.get("files/json/config-1.json").toFile(),
             new TypeReference<HashMap<String,Object>>(){});
 
-        String newCode = new FreeMarkerProcessor(
-                new DefaultConfiguration(pom.getParentFile()),
-                map,
-                pom.getName())
-            .apply();
+        Configuration config = new DefaultConfiguration(pom.getParentFile());
+        String newCode = new FreeMarkerProcessor(map, new File(pom.getName()))
+            .apply(config);
 
         assertThat(code, containsString("${namespace}"));
         assertThat(newCode, containsString("com.hydra.den"));
         assertThat(newCode.contains("${r\"dropwizard.version\"}"), is(false));
+    }
+
+    @Test
+    public void should_find_file_in_nested_dir_structure() throws IOException, TemplateException {
+        Path p = Paths.get("files/templates/ftl/a/");
+        Configuration config = new DefaultConfiguration(p.toFile());
+
+        Map<String,Object> map = new HashMap<>();
+        map.put("name", "Bruce Wayne");
+
+        FreeMarkerProcessor processor = new FreeMarkerProcessor(
+            map, new File("nested/directory/with/a/template.ftl"));
+        String s = processor.apply(config);
+
+        assertThat(s, containsString("Well here's the"));
+        assertThat(s, containsString("Bruce Wayne"));
     }
 }
