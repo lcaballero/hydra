@@ -22,7 +22,7 @@ import static org.junit.Assert.assertThat;
 
 public class FreeMarkerProcessorTests {
 
-    private File ftlHome = Paths.get("files/templates/ftl/t1.ftl").toFile();
+    private Path ftlHome = Paths.get("files/templates/ftl/t1.ftl");
     private Map<String,Object> model = new HashMap<String, Object>();
 
     @Before
@@ -33,9 +33,9 @@ public class FreeMarkerProcessorTests {
 
     @Test
     public void should_produce_result_with_hw() throws IOException, TemplateException {
-        Configuration config = new DefaultConfiguration(ftlHome.getParentFile());
+        Configuration config = new DefaultConfiguration(ftlHome.getParent());
         String result =
-            new FreeMarkerProcessor(model, new File(ftlHome.getName()))
+            new FreeMarkerProcessor(model, new File(ftlHome.toFile().getName()))
             .apply(config);
         assertThat(result, containsString("Hello, World!"));
     }
@@ -45,7 +45,7 @@ public class FreeMarkerProcessorTests {
         ObjectMapper mapper = new ObjectMapper();
         User user = mapper.readValue(Paths.get("files/json/user.json").toFile(), User.class);
 
-        Configuration config = new DefaultConfiguration(ftlHome.getParentFile());
+        Configuration config = new DefaultConfiguration(ftlHome.getParent());
         String result = new FreeMarkerProcessor(user, new File("user.ftl"))
             .apply(config);
 
@@ -62,7 +62,7 @@ public class FreeMarkerProcessorTests {
             new TypeReference<Map<String,Object>>() {});
 
         Pre p = new Pre(user);
-        Configuration config = new DefaultConfiguration(ftlHome.getParentFile());
+        Configuration config = new DefaultConfiguration(ftlHome.getParent());
         String result = new FreeMarkerProcessor(user, new File("user.ftl"))
             .apply(config);
 
@@ -73,15 +73,15 @@ public class FreeMarkerProcessorTests {
 
     @Test
     public void should_read_original_java_ftl_file_and_change_namespace() throws IOException, TemplateException {
-        File javaFile = Paths.get("files/sources/s4/WebDrop/src/main/java/webdrop/App.ftl.java").toFile();
-        String code = Files.toString(javaFile, Charsets.UTF_8);
+        Path javaFile = Paths.get("files/sources/s4/WebDrop/src/main/java/webdrop/App.ftl.java");
+        String code = Files.toString(javaFile.toFile(), Charsets.UTF_8);
 
         ObjectMapper mapper = new ObjectMapper();
         Map<String,Object> map = mapper.readValue(
             Paths.get("files/json/config-1.json").toFile(),
             new TypeReference<HashMap<String,Object>>(){});
 
-        Configuration config = new DefaultConfiguration(javaFile.getParentFile());
+        Configuration config = new DefaultConfiguration(javaFile.getParent());
         String newCode = new FreeMarkerProcessor(map, new File("App.ftl.java"))
             .apply(config);
 
@@ -91,16 +91,16 @@ public class FreeMarkerProcessorTests {
 
     @Test
     public void should_process_file_with_expressions_not_provided_values_as_in_the_pom() throws IOException, TemplateException {
-        File pom = Paths.get("files/sources/s4/WebDrop/pom.ftl.xml").toFile();
-        String code = Files.toString(pom, Charsets.UTF_8);
+        Path pom = Paths.get("files/sources/s4/WebDrop/pom.ftl.xml");
+        String code = Files.toString(pom.toFile(), Charsets.UTF_8);
 
         ObjectMapper mapper = new ObjectMapper();
         Map<String,Object> map = mapper.readValue(
             Paths.get("files/json/config-1.json").toFile(),
             new TypeReference<HashMap<String,Object>>(){});
 
-        Configuration config = new DefaultConfiguration(pom.getParentFile());
-        String newCode = new FreeMarkerProcessor(map, new File(pom.getName()))
+        Configuration config = new DefaultConfiguration(pom.getParent());
+        String newCode = new FreeMarkerProcessor(map, new File(pom.toFile().getName()))
             .apply(config);
 
         assertThat(code, containsString("${namespace}"));
@@ -111,7 +111,7 @@ public class FreeMarkerProcessorTests {
     @Test
     public void should_find_file_in_nested_dir_structure() throws IOException, TemplateException {
         Path p = Paths.get("files/templates/ftl/a/");
-        Configuration config = new DefaultConfiguration(p.toFile());
+        Configuration config = new DefaultConfiguration(p);
 
         Map<String,Object> map = new HashMap<>();
         map.put("name", "Bruce Wayne");

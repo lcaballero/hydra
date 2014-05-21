@@ -9,18 +9,24 @@ import org.junit.Test;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertTrue;
 
-public class BaseGeneratorTests extends FileHelpers {
+public class AppGeneratorTests extends FileHelpers {
 
-    private Path src = Paths.get("files/sources/s6/WebDrop/");
-    private Path root = Paths.get("files/targets/t6/WebDrop");
+    private Path src = Paths.get("files/sources/s7/WebDrop/");
+    private Path root = Paths.get("files/targets/t7/WebDrop");
+    private Map<String,Object> model = null;
 
     @Before
     public void setup() throws IOException {
+        model = new HashMap<>();
+        model.put("namespace", "com.hydra.den");
+
         new DirRemover(root.getParent()).apply();
         createDir(root.getParent());
         createDir(root);
@@ -33,14 +39,45 @@ public class BaseGeneratorTests extends FileHelpers {
 
     public void exists(Path r, String... files) {
         for (String s : files) {
-            assertTrue(exists(r.resolve(s)));
+            Path p = r.resolve(s);
+            assertTrue("Path doesn't exists : " + p, exists(r.resolve(s)));
+        }
+    }
+
+    class NamespaceGenerator extends AbstractGenerator {
+
+        NamespaceGenerator(Path source, Path target, Configuration config, Object model) {
+            super(source, target, config, model);
+        }
+
+        public void apply() throws IOException, TemplateException {
+            new BaseGenerator(source, target, config, model)
+                .createDirs(
+                    to("src/main/java/"))
+                .createNamespaceDirs(
+                    to("src/main/java/"),
+                    "com.hydra.den")
+                .apply();
         }
     }
 
     @Test
+    public void should_create_namespace_dirs() throws IOException, TemplateException {
+        Configuration config = new DefaultConfiguration(src);
+        new NamespaceGenerator(src, root, config, model).apply();
+
+        exists(
+            root,
+            "src/main/java/",
+            "src/main/java/com/",
+            "src/main/java/com/hydra/",
+            "src/main/java/com/hydra/den/");
+    }
+
+    @Test
     public void should_should_create_target() throws IOException, TemplateException {
-        Configuration config = new DefaultConfiguration(src.toFile());
-        new Generator(src, root, config).apply();
+        Configuration config = new DefaultConfiguration(src);
+        new AppGenerator(src, root, config, model).apply();
 
         assertThat(exists(root), is(true));
 
