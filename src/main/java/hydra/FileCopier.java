@@ -26,7 +26,7 @@ public class FileCopier implements IApplier {
         try {
             Files.copy(this.src, this.target, this.options);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println(this.getClass().getName() + " : " + e.getMessage());
         }
     }
 

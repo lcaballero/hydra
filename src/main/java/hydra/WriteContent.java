@@ -12,7 +12,7 @@ public class WriteContent implements IApplier {
     private Path target;
     private String content;
 
-    public WriteContent(Path target, String content) {
+    public WriteContent(String content, Path target) {
         this.target = target;
         this.content = content;
     }
