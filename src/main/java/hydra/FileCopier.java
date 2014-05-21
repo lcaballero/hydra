@@ -31,11 +31,11 @@ public class FileCopier implements IApplier {
     }
 
     public boolean hasSource() {
-        return src.toFile().exists();
+        return Files.exists(src);
     }
 
     public boolean isDirectory() {
-        return src.toFile().isDirectory();
+        return Files.isDirectory(src);
     }
 
     @Override

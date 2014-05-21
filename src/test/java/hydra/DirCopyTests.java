@@ -5,25 +5,28 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
-public class DirCopyTests {
+public class DirCopyTests extends FileHelpers {
 
     private static final Path s2 = Paths.get("files/sources/s2/dir1/");
     private static final Path t2 = Paths.get("files/targets/t2/dir1/");
 
     @Before
     public void setup() {
-        if (t2.toFile().exists()) { t2.toFile().delete(); }
+        delete(t2);
+        createDir(t2.getParent());
     }
 
     @After
     public void teardown() {
-        if (t2.toFile().exists()) { t2.toFile().delete(); }
+        delete(t2);
+        delete(t2.getParent());
     }
 
     @Test
@@ -35,12 +38,12 @@ public class DirCopyTests {
 
     @Test
     public void should_find_cp_of_source_dir_in_target_dir() throws IOException {
-        assertThat(t2.toFile().exists(), is(false));
+        assertThat(Files.exists(t2), is(false));
 
         FileCopier dcp = new FileCopier(s2, t2);
         dcp.apply();
 
         assertThat(dcp.isDirectory(), is(true));
-        assertThat(t2.toFile().exists(), is(true));
+        assertThat(Files.exists(t2), is(true));
     }
 }
