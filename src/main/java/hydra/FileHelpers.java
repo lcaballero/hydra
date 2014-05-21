@@ -27,6 +27,20 @@ public class FileHelpers {
         }
     }
 
+    /**
+     * The assumption here is that the directory is already empty.
+     * @param p The empty dir to delete.
+     */
+    public void delete(Path p) {
+        try {
+            if (Files.exists(p)) {
+                Files.delete(p);
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public void copy(Path a, Path b) {
         try {
             Files.copy(a, b, FileCopier.DEFAULT_COPY_OPTIONS);

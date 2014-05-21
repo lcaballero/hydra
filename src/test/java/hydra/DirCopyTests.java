@@ -13,35 +13,34 @@ import static org.junit.Assert.assertThat;
 
 public class DirCopyTests {
 
-    private static final Path S1 = Paths.get("files/sources/s2/dir1/");
-    private static final Path T1 = Paths.get("files/targets/t2/dir1/");
+    private static final Path s2 = Paths.get("files/sources/s2/dir1/");
+    private static final Path t2 = Paths.get("files/targets/t2/dir1/");
 
     @Before
     public void setup() {
-        if (T1.toFile().exists()) { T1.toFile().delete(); }
+        if (t2.toFile().exists()) { t2.toFile().delete(); }
     }
 
     @After
     public void teardown() {
-        if (T1.toFile().exists()) { T1.toFile().delete(); }
+        if (t2.toFile().exists()) { t2.toFile().delete(); }
     }
-
 
     @Test
     public void should_find_source_dir() throws IOException {
-        FileCopier cp = new FileCopier(S1, T1);
+        FileCopier cp = new FileCopier(s2, t2);
         assertThat("isDirectory", cp.isDirectory(), is(true));
         assertThat(cp.hasSource(), is(true));
     }
 
     @Test
     public void should_find_cp_of_source_dir_in_target_dir() throws IOException {
-        assertThat(T1.toFile().exists(), is(false));
+        assertThat(t2.toFile().exists(), is(false));
 
-        FileCopier dcp = new FileCopier(S1, T1);
+        FileCopier dcp = new FileCopier(s2, t2);
         dcp.apply();
 
         assertThat(dcp.isDirectory(), is(true));
-        assertThat(T1.toFile().exists(), is(true));
+        assertThat(t2.toFile().exists(), is(true));
     }
 }
