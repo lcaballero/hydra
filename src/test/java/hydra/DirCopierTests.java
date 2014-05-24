@@ -17,7 +17,7 @@ public class DirCopierTests extends FileHelpersForTesting {
 
     @Before
     public void setup() {
-        new DirRemover(target).apply();
+        new Rmdir(target).apply();
         createFile(target);
     }
 

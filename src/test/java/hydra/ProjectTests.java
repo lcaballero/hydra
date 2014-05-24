@@ -1,6 +1,5 @@
 package hydra;
 
-import freemarker.template.TemplateException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,14 +16,14 @@ public class ProjectTests extends FileHelpersForTesting {
 
     @Before
     public void setup() throws IOException {
-        new DirRemover(target.getParent()).apply();
+        new Rmdir(target.getParent()).apply();
         createDir(target.getParent());
         createDir(target);
     }
 
     @After
     public void teardown() {
-        new DirRemover(target.getParent()).apply();
+        new Rmdir(target.getParent()).apply();
     }
 
     @Test

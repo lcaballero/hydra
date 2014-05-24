@@ -18,7 +18,7 @@ public class ZipExtractorTests extends FileHelpersForTesting {
 
     @Before public void setup() { createDir(target); }
     @After public void teardown() {
-        new DirRemover(target).apply();
+        new Rmdir(target).apply();
     }
 
     public void exists(Path r, String... files) {

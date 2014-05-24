@@ -25,7 +25,7 @@ public class DirRemoverTests extends FileHelpersForTesting {
     @Test
     public void should_delete_all_files_in_a_directory() throws IOException {
         assertThat(hasFiles(target), is(true));
-        new DirRemover(target).apply();
+        new Rmdir(target).apply();
         assertThat(target.toFile().exists(), is(false));
     }
 }

@@ -4,11 +4,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-public class DirectoriesCreator implements IApplier {
+public class Mkdirs implements IApplier {
 
     private Path target;
 
-    public DirectoriesCreator(Path target) {
+    public Mkdirs(Path target) {
         this.target = target;
     }
 

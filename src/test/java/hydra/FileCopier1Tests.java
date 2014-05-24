@@ -14,7 +14,7 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 
-public class FileCopierTests extends FileHelpersForTesting {
+public class FileCopier1Tests extends FileHelpersForTesting {
 
     private static final Path s1 = Paths.get("files/sources/s1/first-file.txt");
     private static final Path t1 = Paths.get("files/targets/t1/first-file.txt");

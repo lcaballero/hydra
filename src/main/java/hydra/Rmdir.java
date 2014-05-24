@@ -2,10 +2,10 @@ package hydra;
 
 import java.nio.file.Path;
 
-public class DirRemover implements IApplier {
+public class Rmdir implements IApplier {
     private Path target;
 
-    public DirRemover(Path target) {
+    public Rmdir(Path target) {
         this.target = target;
     }
 

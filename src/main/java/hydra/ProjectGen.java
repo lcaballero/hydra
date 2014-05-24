@@ -38,7 +38,7 @@ public class ProjectGen<TModel> implements IApplier {
         for (String dir : dirs) {
             Path d = target.resolve(dir);
             System.out.println("Creating Dir: " + d);
-            exec.add(new DirectoriesCreator(d));
+            exec.add(new Mkdirs(d));
         }
         return this;
     }
@@ -95,7 +95,7 @@ public class ProjectGen<TModel> implements IApplier {
 
     public ProjectGen<TModel> mkdir() {
         System.out.println("Mkdir " + this.target);
-        exec.add(new DirectoriesCreator(this.target));
+        exec.add(new Mkdirs(this.target));
         return this;
     }
 
