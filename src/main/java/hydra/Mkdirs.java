@@ -15,10 +15,11 @@ public class Mkdirs implements IApplier {
     @Override
     public void apply() {
         try {
-            Files.createDirectories(this.target);
+            if (Files.exists(this.target)) {
+                Files.createDirectories(this.target);
+            }
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-
     }
 }

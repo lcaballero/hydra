@@ -11,13 +11,20 @@ import java.util.Map;
 
 public class Project {
 
+    private Path source = Paths.get("files/sources/s9/WebDrop/");
+    private Path target = Paths.get("files/targets/t9/WebDrop/");
+
+    public Project(Path source, Path target) {
+        this.source = source;
+        this.target = target;
+    }
+
     public void apply() {
 
-        Path source = Paths.get("files/sources/s9/WebDrop/");
-        Path target = Paths.get("files/targets/t9/WebDrop/");
         Map<String, Object> model = getModel();
 
         ProjectGen.<Map<String,Object>>of(source, target, model)
+            .mkdir()
             .apply((p) ->
                 p.createDirs(
                     "src/main/resources/css/",
