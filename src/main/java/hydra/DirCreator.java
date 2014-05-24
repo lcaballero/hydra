@@ -15,9 +15,13 @@ public class DirCreator implements IApplier {
     @Override
     public void apply() {
         try {
-            Files.createDirectory(this.target);
+            if (Files.exists(this.target)) {
+                System.out.printf("DirCreator: %s\n", this.target);
+                Files.createDirectory(this.target);
+            }
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            System.out.printf(
+                "%s %s\n", e.getMessage(), this.getClass());
         }
     }
 }
