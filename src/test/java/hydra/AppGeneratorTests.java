@@ -16,7 +16,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertTrue;
 
-public class AppGeneratorTests extends FileHelpers {
+public class AppGeneratorTests extends FileHelpersForTesting {
 
     private Path src = Paths.get("files/sources/s7/WebDrop/");
     private Path root = Paths.get("files/targets/t7/WebDrop");
@@ -35,13 +35,6 @@ public class AppGeneratorTests extends FileHelpers {
     @After
     public void teardown() {
         new DirRemover(root.getParent()).apply();
-    }
-
-    public void exists(Path r, String... files) {
-        for (String s : files) {
-            Path p = r.resolve(s);
-            assertTrue("Path doesn't exists : " + p, exists(r.resolve(s)));
-        }
     }
 
     class NamespaceGenerator extends AbstractGenerator {
@@ -97,10 +90,10 @@ public class AppGeneratorTests extends FileHelpers {
         exists(
             root,
             "src/main/resources/",
-            "src/main/resources/css",
             "src/main/resources/css");
 
         Path ns = root.resolve("src/main/java/webdrop/");
+
         exists(
             ns,
             "App.java",

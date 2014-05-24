@@ -1,5 +1,6 @@
 package hydra;
 
+import com.sun.java.swing.plaf.motif.resources.motif_es;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -10,6 +11,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 public class BaseGenerator implements IApplier {
 
@@ -66,6 +68,11 @@ public class BaseGenerator implements IApplier {
 
     public BaseGenerator process(Path a, Path b) throws IOException, TemplateException {
         exec.add(new WriteContent(process(config, model, a), b));
+        return this;
+    }
+
+    public BaseGenerator apply(Function<BaseGenerator, IApplier> f) {
+        exec.add(f.apply(this));
         return this;
     }
 

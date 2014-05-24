@@ -12,7 +12,7 @@ import java.nio.file.Paths;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
-public class DirCopyTests extends FileHelpers {
+public class DirCopyTests extends FileHelpersForTesting {
 
     private static final Path s2 = Paths.get("files/sources/s2/dir1/");
     private static final Path t2 = Paths.get("files/targets/t2/dir1/");

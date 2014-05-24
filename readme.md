@@ -29,6 +29,9 @@ This will be necessary to expand a namespace from a '.' delimited name to a '/' 
 - Reading source files from a jar where the app is running. This would be useful for creating a fat jar with
 all of the deps and then reading all source files from inside of that jar.
 
+- Make the temp directory a configuration detail just.  The normal case maybe not exist or have special
+permissions, so allow configuration to override the default.
+
 - How to test a code generator that uses the framework?
     - Add jar-ing to the app so that it can be used to jar up a generator with a main?
 

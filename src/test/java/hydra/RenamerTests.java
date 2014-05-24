@@ -12,7 +12,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 
-public class RenamerTests extends FileHelpers {
+public class RenamerTests extends FileHelpersForTesting {
 
     private Path t5 = Paths.get("files/targets/t5");
 

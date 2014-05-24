@@ -11,7 +11,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 
-public class DirRemoverTests extends FileHelpers {
+public class DirRemoverTests extends FileHelpersForTesting {
 
     private Path target = Paths.get("files/targets/t3");
     private Path source = Paths.get("files/sources/s3");

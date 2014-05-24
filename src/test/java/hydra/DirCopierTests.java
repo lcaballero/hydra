@@ -10,7 +10,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 
-public class DirCopierTests extends FileHelpers {
+public class DirCopierTests extends FileHelpersForTesting {
 
     private Path source = Paths.get("files/sources/s3");
     private Path target = Paths.get("files/targets/t3");

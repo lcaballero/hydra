@@ -7,14 +7,14 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public abstract class AbstractGenerator implements IApplier {
+public abstract class AbstractGenerator<TModel> implements IApplier {
 
     protected Path source;
     protected Path target;
     protected Configuration config;
-    protected Object model;
+    protected TModel model;
 
-    public AbstractGenerator(Path source, Path target, Configuration config, Object model) {
+    public AbstractGenerator(Path source, Path target, Configuration config, TModel model) {
         this.source = source;
         this.target = target;
         this.config = config;

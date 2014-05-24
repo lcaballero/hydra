@@ -34,21 +34,6 @@ public class AppTest
     }
 
     @Test
-    public void should_create_app_in_the_unstarted_state() {
-        Injector inject = Guice.createInjector(new ShouldHaveGuice());
-        App app = inject.getInstance(App.class);
-        assertThat(app.isStarted(), is(false));
-    }
-
-    @Test
-    public void should_create_app_and_be_able_to_start_it() {
-        Injector inject = Guice.createInjector(new ShouldHaveGuice());
-        App app = inject.getInstance(App.class);
-        app.start();
-        assertThat(app.isStarted(), is(true));
-    }
-
-    @Test
     public void should_maintain_app_as_singleton() {
         Injector inject = Guice.createInjector(new ShouldHaveGuice());
         App app1 = inject.getInstance(App.class);

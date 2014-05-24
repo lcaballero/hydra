@@ -6,15 +6,7 @@ import com.google.inject.Singleton;
 
 @Singleton
 public class App {
-
-    private boolean started = false;
-
-    public boolean isStarted() {
-        return this.started;
-    }
-
-    public void start() {
-        started = true;
+    public void start(String[] args) {
         System.out.println(Joiner.on(", ").join("Hello", "World"));
     }
 }
