@@ -20,7 +20,7 @@ import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-public class FreeMarkerProcessorTests {
+public class FreeMarkerProcessorTest {
 
     private Path ftlHome = Paths.get("files/templates/ftl/t1.ftl");
     private Map<String,Object> model = new HashMap<String, Object>();

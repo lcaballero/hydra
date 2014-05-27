@@ -15,10 +15,14 @@ public class Mkdirs implements IApplier {
     @Override
     public void apply() {
         try {
+            System.out.println("Mkdirs : " + this.target);
             if (Files.exists(this.target)) {
+                System.out.println("Already Exists: " + this.target);
+            } else {
                 Files.createDirectories(this.target);
             }
         } catch (IOException e) {
+            System.out.println("Failed to make directory: " + this.target);
             System.out.println(e.getMessage());
         }
     }

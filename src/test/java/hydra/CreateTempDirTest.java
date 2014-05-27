@@ -12,7 +12,7 @@ import java.nio.file.Paths;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
-public class CreateTempDirTests extends FileHelpersForTesting {
+public class CreateTempDirTest extends FileHelpersForTesting {
 
     private Path target = Paths.get("files/targets/t8/");
 

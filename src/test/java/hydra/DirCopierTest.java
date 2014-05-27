@@ -3,7 +3,6 @@ package hydra;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -11,21 +10,21 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 
-public class RmdirTests extends FileHelpersForTesting {
+public class DirCopierTest extends FileHelpersForTesting {
 
-    private Path target = Paths.get("files/targets/t3");
     private Path source = Paths.get("files/sources/s3");
+    private Path target = Paths.get("files/targets/t3");
 
     @Before
     public void setup() {
+        new Rmdir(target).apply();
         createFile(target);
-        new DirCopier(source, target).apply();
     }
 
     @Test
-    public void should_delete_all_files_in_a_directory() throws IOException {
+    public void should_copy_all_files_from_one_directory_to_another() {
+        assertThat(hasFiles(target), is(false));
+        new DirCopier(source, target).apply();
         assertThat(hasFiles(target), is(true));
-        new Rmdir(target).apply();
-        assertThat(target.toFile().exists(), is(false));
     }
 }

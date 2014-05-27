@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 import static org.junit.Assert.assertTrue;
 
 
-public class ZipExtractorTests extends FileHelpersForTesting {
+public class ZipExtractorTest extends FileHelpersForTesting {
 
     private Path src = Paths.get("files/sources/s8/UseHydra.jar");
     private Path target = Paths.get("files/targets/t8/");

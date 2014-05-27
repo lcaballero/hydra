@@ -94,7 +94,6 @@ public class ProjectGen<TModel> implements IApplier {
     }
 
     public ProjectGen<TModel> mkdir() {
-        System.out.println("Mkdir " + this.target);
         exec.add(new Mkdirs(this.target));
         return this;
     }

@@ -4,11 +4,12 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.UUID;
 
 public class CreateTempDir {
 
     public static final Path DEFAULT_TMP = Paths.get("/tmp/");
-    public static final String DEFAULT_PREFIX = "hydra-den_";
+    public static final String DEFAULT_PREFIX = "hydra_den_";
 
     private Path tmp;
     private String prefix;
@@ -23,7 +24,10 @@ public class CreateTempDir {
     }
 
     public Path apply() throws IOException {
-        Path temp = Files.createTempDirectory(this.tmp, this.prefix);
+
+        Path temp = Files.createDirectory(
+            this.tmp.resolve(this.prefix + UUID.randomUUID().toString()));
+
         System.out.printf("Creating temp directory: %s\n", temp);
 
         return temp;

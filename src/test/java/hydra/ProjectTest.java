@@ -9,7 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 
-public class ProjectTests extends FileHelpersForTesting {
+public class ProjectTest extends FileHelpersForTesting {
 
     private Path s1 = Paths.get("files/sources/s9/WebDrop/");
     private Path t1 = Paths.get("files/targets/t9/WebDrop");
