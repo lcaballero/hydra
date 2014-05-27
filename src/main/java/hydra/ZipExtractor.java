@@ -62,13 +62,16 @@ public class ZipExtractor implements IApplier {
                     continue;
                 }
 
-                // Case where the entry isn't reporting entry as a directory.
+                // Case where the entry isn't reported as a directory.
                 if (Files.isDirectory(next)) {
                     System.out.printf("Creating: %s\n", next);
                     entry = ins.getNextEntry();
                     continue;
                 }
 
+                // Case: where the directories weren't first and therefor not created
+                // before files in those directories were traversed, so here we
+                // create the parent directories if they don't exist
                 if (!Files.exists(next.getParent())) {
                     Files.createDirectories(next.getParent());
                 }
