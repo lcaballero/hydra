@@ -31,7 +31,7 @@ public class ZipExtractorTest extends FileHelpersForTesting {
     @Test
     public void should_extract_files_from_the_jar() throws IOException {
         Path temp = new CreateTempDir(target, "hydra-den_").apply();
-        new ZipExtractor(temp, src.toFile()).apply();
+        new ZipExtractor(temp, src.toFile(), null).apply();
 
         exists(
             temp.resolve("template"),

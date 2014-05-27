@@ -9,18 +9,23 @@ import java.util.zip.ZipInputStream;
 
 public class ZipExtractor implements IApplier {
 
+    public static final String DEFAULT_TEMPLATE_DIR = "template/";
     private Path tmp;
     private File jar;
+    private String templateDir;
 
     public ZipExtractor(Path temp) {
-        this(temp, null);
+        this(temp, null, DEFAULT_TEMPLATE_DIR);
     }
 
-    public ZipExtractor(Path tmp, File jar) {
+    public ZipExtractor(Path tmp, File jar, String templateDir) {
         this.tmp = tmp;
         this.jar = jar == null
             ? new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath())
             : jar;
+        this.templateDir = templateDir == null || "".equals(templateDir)
+            ? DEFAULT_TEMPLATE_DIR
+            : templateDir;
     }
 
     public void apply() {
@@ -45,7 +50,7 @@ public class ZipExtractor implements IApplier {
                 String name = entry.getName();
                 Path next = temp.resolve(name);
 
-                if (!entry.getName().startsWith("template/")) {
+                if (!entry.getName().startsWith(this.templateDir)) {
                     entry = ins.getNextEntry();
                     continue;
                 }
