@@ -123,4 +123,40 @@ public class FreeMarkerProcessorTest {
         assertThat(s, containsString("Well here's the"));
         assertThat(s, containsString("Bruce Wayne"));
     }
+
+    @Test
+    public void should_use_accessors_to_fill_in_template() throws IOException, TemplateException {
+        Path p = Paths.get("files/templates/model/");
+        Configuration config = new DefaultConfiguration(p);
+
+        // So the BIG NOTE here is that Project Params CANNOT be an inner-class
+        ProjectParams model = new ProjectParams();
+        model.setNamespace("com.coolkid");
+        model.setName("NewTool");
+
+        FreeMarkerProcessor processor = new FreeMarkerProcessor(model, new File("model.ftl"));
+        String s = processor.apply(config);
+
+        assertThat(s, containsString("com.coolkid"));
+        assertThat(s, containsString("NewTool"));
+    }
+
+    @Test
+    public void should_use_accessors_of_user_to_fill_in_template() throws IOException, TemplateException {
+        Path p = Paths.get("files/templates/model/");
+        Configuration config = new DefaultConfiguration(p);
+
+        User.Name name = new User.Name();
+        name.setFirst("Bruce");
+        name.setLast("Wayne");
+
+        User model = new User();
+        model.setName(name);
+
+        FreeMarkerProcessor processor = new FreeMarkerProcessor(model, new File("user.ftl"));
+        String s = processor.apply(config);
+
+        assertThat(s, containsString("Bruce"));
+        assertThat(s, containsString("Wayne"));
+    }
 }

@@ -23,14 +23,15 @@ public class CreateTempDir {
         this.prefix = prefix == null ? DEFAULT_PREFIX : prefix;
     }
 
-    public Path apply() throws IOException {
-
-        Path temp = Files.createDirectory(
-            this.tmp.resolve(this.prefix + UUID.randomUUID().toString()));
-
-        System.out.printf("Creating temp directory: %s\n", temp);
-
-        return temp;
+    public Path apply() {
+        String filename = this.prefix + UUID.randomUUID().toString();
+        try {
+            Path temp = Files.createDirectory(this.tmp.resolve(filename));
+            System.out.printf("Creating temp directory: %s\n", temp);
+            return temp;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
-
 }
